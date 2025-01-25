@@ -11,17 +11,24 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.unit.dp
+import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.example.speakxassignment.R
 import com.example.speakxassignment.presentation.viewmodels.ItemViewModel
 import com.example.speakxassignment.utils.ItemsState
+import kotlinx.coroutines.delay
+
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier, viewModel: ItemViewModel) {
@@ -41,7 +48,7 @@ fun HomeScreen(modifier: Modifier = Modifier, viewModel: ItemViewModel) {
                 )
             }
         },
-        containerColor = if(isDarkTheme) colorResource(R.color.darkBAck) else colorResource(R.color.lightBack)
+        containerColor = if (isDarkTheme) colorResource(R.color.darkBAck) else colorResource(R.color.lightBack)
 
     ) { it ->
         Column(
@@ -54,11 +61,11 @@ fun HomeScreen(modifier: Modifier = Modifier, viewModel: ItemViewModel) {
 
             when (itemState.value) {
                 is ItemsState.Error -> {
-
+                    Text("Error In Loading Data")
                 }
 
                 is ItemsState.Loading -> {
-                    CircularProgressIndicator()
+                    ShimmerComposable()
                 }
 
                 is ItemsState.Success -> {
@@ -69,7 +76,7 @@ fun HomeScreen(modifier: Modifier = Modifier, viewModel: ItemViewModel) {
                     ) {
 
                         items(
-                            count = items.itemCount ,
+                            count = items.itemCount,
                             key = items.itemKey { item -> item.id }
                         ) { index ->
                             val item = items[index]
@@ -80,6 +87,25 @@ fun HomeScreen(modifier: Modifier = Modifier, viewModel: ItemViewModel) {
 
                         }
 
+                        items.apply {
+                            when {
+                                loadState.append is LoadState.Loading -> item {
+                                    ShimmerComposable()
+                                }
+
+                                loadState.prepend is LoadState.Loading -> item {
+                                    ShimmerComposable()
+                                }
+
+                                loadState.refresh is LoadState.Error -> item {
+                                    Text(
+                                        "Error loading data",
+                                        color = Color.Red,
+                                        modifier = Modifier.padding(16.dp)
+                                    )
+                                }
+                            }
+                        }
 
 
                     }
