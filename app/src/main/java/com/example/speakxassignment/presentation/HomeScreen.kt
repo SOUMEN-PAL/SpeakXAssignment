@@ -84,43 +84,49 @@ fun HomeScreen(
                 is ItemsState.Success -> {
                     val items =
                         (itemState.value as ItemsState.Success).data.collectAsLazyPagingItems()
-                    LazyColumn(
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
+                    if(items.itemCount > 0) {
 
-                        items(
-                            count = items.itemCount,
-                            key = items.itemKey { item -> item.id }
-                        ) { index ->
-                            val item = items[index]
 
-                            if (item != null) {
-                                ItemInfo(item)
+                        LazyColumn(
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+
+                            items(
+                                count = items.itemCount,
+                                key = items.itemKey { item -> item.id }
+                            ) { index ->
+                                val item = items[index]
+
+                                if (item != null) {
+                                    ItemInfo(item)
+                                }
+
                             }
 
-                        }
+                            items.apply {
+                                when {
+                                    loadState.append is LoadState.Loading -> item {
+                                        ShimmerComposable()
+                                    }
 
-                        items.apply {
-                            when {
-                                loadState.append is LoadState.Loading -> item {
-                                    ShimmerComposable()
-                                }
+                                    loadState.prepend is LoadState.Loading -> item {
+                                        ShimmerComposable()
+                                    }
 
-                                loadState.prepend is LoadState.Loading -> item {
-                                    ShimmerComposable()
-                                }
-
-                                loadState.refresh is LoadState.Error -> item {
-                                    Text(
-                                        "Error loading data",
-                                        color = Color.Red,
-                                        modifier = Modifier.padding(16.dp)
-                                    )
+                                    loadState.refresh is LoadState.Error -> item {
+                                        Text(
+                                            "Error loading data",
+                                            color = Color.Red,
+                                            modifier = Modifier.padding(16.dp)
+                                        )
+                                    }
                                 }
                             }
+
+
                         }
-
-
+                    }else{
+                        Text("Loading....")
                     }
                 }
             }
