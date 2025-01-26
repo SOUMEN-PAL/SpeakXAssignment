@@ -55,6 +55,7 @@ import com.example.speakxassignment.R
 import com.example.speakxassignment.presentation.ItemInfo
 import com.example.speakxassignment.presentation.ShimmerComposable
 import com.example.speakxassignment.presentation.TypewriterText
+import com.example.speakxassignment.presentation.navigation.Screens
 import com.example.speakxassignment.presentation.viewmodels.ItemViewModel
 import com.example.speakxassignment.utils.SearchItemState
 
@@ -107,7 +108,7 @@ fun SearchScreen(
                 IconButton(
                     modifier = Modifier.size(88.dp),
                     onClick = {
-
+                        navController.navigate(Screens.aboutMeScreen.route)
                     }
                 ) {
                     Image(

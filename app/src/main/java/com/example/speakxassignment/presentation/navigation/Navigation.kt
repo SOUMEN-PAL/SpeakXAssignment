@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.speakxassignment.presentation.HomeScreen
+import com.example.speakxassignment.presentation.aboutMeScreen.AboutMeScreen
 import com.example.speakxassignment.presentation.searchScreen.SearchScreen
 import com.example.speakxassignment.presentation.viewmodels.ItemViewModel
 
@@ -25,6 +26,10 @@ fun Navigation(
 
         composable(route = Screens.searchScreen.route){
             SearchScreen(navController = navController , viewModel = viewModel)
+        }
+
+        composable(route = Screens.aboutMeScreen.route){
+            AboutMeScreen(navController = navController)
         }
     }
 }

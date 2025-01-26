@@ -71,5 +71,9 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.8.5")
 
     implementation("androidx.paging:paging-compose:3.3.5")
+    implementation("io.coil-kt.coil3:coil-gif:3.0.4")
+    implementation("io.coil-kt.coil3:coil-compose:3.0.4")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.4")
+    implementation("com.google.accompanist:accompanist-drawablepainter:0.36.0")
 
 }
