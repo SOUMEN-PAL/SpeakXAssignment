@@ -41,7 +41,6 @@ import com.example.speakxassignment.data.model.Item
 import kotlinx.coroutines.delay
 
 
-//Compossable without shimmer
 
 @Composable
 fun ItemInfo(data: Item) {
@@ -102,7 +101,7 @@ fun ItemInfo(data: Item) {
                         shape = RoundedCornerShape(16.dp)
                     )
                     .background(colorResource(R.color.itemColor))
-                    .padding(vertical = 14.dp, horizontal = if (isLandscape) 180.dp else 60.dp),
+                    .size(height = 55.dp, width = if (isLandscape) 480.dp else 180.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
@@ -111,7 +110,6 @@ fun ItemInfo(data: Item) {
                     fontSize = 32.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White,
-                    textDecoration = TextDecoration.Underline
                 )
             }
         }

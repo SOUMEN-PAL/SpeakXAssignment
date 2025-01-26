@@ -123,8 +123,6 @@ fun ShimmerComposable(modifier: Modifier = Modifier) {
         ) {
             Box(
                 modifier = Modifier
-                    .width(if(isLandscape) 500.dp else 220.dp)
-                    .height(60.dp)
                     .clip(RoundedCornerShape(16.dp))
                     .border(
                         width = 1.dp,
@@ -134,7 +132,8 @@ fun ShimmerComposable(modifier: Modifier = Modifier) {
                         shape = RoundedCornerShape(16.dp)
                     )
                     .background(colorResource(R.color.itemColor))
-                    .shimmerEffect(),
+                    .shimmerEffect()
+                    .size(height = 55.dp, width = if (isLandscape) 480.dp else 180.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Text(

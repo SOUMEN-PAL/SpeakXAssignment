@@ -1,6 +1,6 @@
 package com.example.speakxassignment.presentation.searchScreen
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -40,12 +40,14 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -96,6 +98,30 @@ fun SearchScreen(
                     }
                 }
             )
+        },
+        floatingActionButton = {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                IconButton(
+                    modifier = Modifier.size(88.dp),
+                    onClick = {
+
+                    }
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.developer),
+                        contentDescription = "Know About the Developer",
+                        contentScale = ContentScale.Fit,
+                    )
+
+                }
+                Text(
+                    text = "About\nDeveloper",
+                    textAlign = TextAlign.Center
+                )
+            }
         },
         floatingActionButtonPosition = FabPosition.End,
         containerColor = if (isDarkTheme) colorResource(R.color.darkBAck) else colorResource(R.color.lightBack)
