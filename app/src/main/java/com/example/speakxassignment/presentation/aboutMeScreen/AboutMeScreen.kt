@@ -196,7 +196,7 @@ fun AboutMeScreen(modifier: Modifier = Modifier, navController: NavController) {
                         contentDescription = "Your GIF Description",
                         modifier = modifier
                     )
-                    Text("Hire me please \uD83D\uDE4F\uD83C\uDFFC")
+                    Text("\uD83E\uDD7A Hire me please \uD83D\uDE4F\uD83C\uDFFC")
                 }
 
 
