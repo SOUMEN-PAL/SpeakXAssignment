@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 
 import androidx.compose.runtime.Composable
@@ -37,7 +39,6 @@ import androidx.compose.ui.unit.sp
 import com.example.speakxassignment.R
 import com.example.speakxassignment.data.model.Item
 import kotlinx.coroutines.delay
-
 
 
 //Compossable without shimmer

@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.speakxassignment.presentation.HomeScreen
+import com.example.speakxassignment.presentation.navigation.Navigation
 import com.example.speakxassignment.presentation.viewmodels.ItemViewModel
 import com.example.speakxassignment.presentation.viewmodels.ItemViewModelFactory
 import com.example.speakxassignment.ui.theme.SpeakXAssignmentTheme
@@ -26,7 +27,7 @@ class MainActivity : ComponentActivity() {
             val viewModel:ItemViewModel = viewModel(factory = ItemViewModelFactory(repository))
             SpeakXAssignmentTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    HomeScreen(viewModel = viewModel , modifier = Modifier.padding(innerPadding))
+                    Navigation(viewModel = viewModel , modifier = Modifier.padding(innerPadding))
                 }
             }
         }

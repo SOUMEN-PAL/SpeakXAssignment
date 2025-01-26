@@ -15,4 +15,9 @@
     <color name="itemColor">#FF5900F0</color>
     <color name="idColor">#FFFF7100</color>
     <color name="itemBOrder">#FF00B3FF</color>
+    <color name="dividerColor">#FFECECFF</color>
+    <color name="searchIconColor">#FFFFCCBB</color>
+    <color name="searchBarColor">#FFECECFF</color>
+    <color name="searchIcon2Color">#FFFF7100</color>
+    <color name="searchbarBAck">#FFECECFF</color>
 </resources>

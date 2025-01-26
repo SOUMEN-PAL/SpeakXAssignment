@@ -8,30 +8,36 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.example.speakxassignment.R
+import com.example.speakxassignment.presentation.searchScreen.SearchButton
 import com.example.speakxassignment.presentation.viewmodels.ItemViewModel
 import com.example.speakxassignment.utils.ItemsState
-import kotlinx.coroutines.delay
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, viewModel: ItemViewModel) {
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    viewModel: ItemViewModel,
+    navController: NavController
+) {
 
     val itemState = viewModel.itemListState.collectAsState()
     val isDarkTheme = isSystemInDarkTheme()
@@ -40,14 +46,21 @@ fun HomeScreen(modifier: Modifier = Modifier, viewModel: ItemViewModel) {
         modifier = Modifier
             .fillMaxSize(),
         topBar = {
-            Column(
-                modifier = Modifier.background(color = colorResource(R.color.appcolor))
-            ) {
-                TypewriterText(
-                    text = "SpeakX Assignment"
-                )
-            }
+            TopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = colorResource(R.color.appcolor)
+                ),
+                title = {
+                    TypewriterText(
+                        text = "SpeakX Assignment"
+                    )
+                }
+            )
         },
+        floatingActionButton = {
+            SearchButton(navController = navController)
+        },
+        floatingActionButtonPosition = FabPosition.End,
         containerColor = if (isDarkTheme) colorResource(R.color.darkBAck) else colorResource(R.color.lightBack)
 
     ) { it ->
