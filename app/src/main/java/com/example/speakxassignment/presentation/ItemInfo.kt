@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 
 import androidx.compose.runtime.Composable
@@ -27,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
@@ -60,13 +62,16 @@ fun ItemInfo(data: Item) {
         modifier = Modifier
             .fillMaxWidth()
             .height(130.dp)
-            .padding(16.dp),
+            .padding(16.dp)
+            .shadow(2.dp , shape = RoundedCornerShape(24.dp))
+            .background(color = if(!isDarkTheme) colorResource(R.color.dividerColor) else colorResource(R.color.searchIcon3Color) , shape = RoundedCornerShape(24.dp)),
         horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
             modifier = Modifier
                 .size(70.dp)
+                .padding(6.dp)
                 .border(
                     width = 2.dp,
                     color = colorResource(R.color.shapeColorBorder),
@@ -78,7 +83,7 @@ fun ItemInfo(data: Item) {
         ) {
             Text(
                 text = data.id.toString(),
-                fontSize = 28.sp,
+                fontSize = 24.sp,
                 color = colorResource(R.color.idColor),
                 fontWeight = FontWeight.Bold
             )

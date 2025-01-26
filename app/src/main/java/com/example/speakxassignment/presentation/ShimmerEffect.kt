@@ -32,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -50,7 +51,7 @@ fun Modifier.shimmerEffect(): Modifier = composed {
     val startOffsetX by animateFloatAsState(
         targetValue = if (showShimmer) 1f else 0f,
         animationSpec = tween(
-            durationMillis = 1000,
+            durationMillis = 500,
             easing = FastOutSlowInEasing
         ), label = "ShimmerOffsetX"
     )
@@ -89,13 +90,17 @@ fun ShimmerComposable(modifier: Modifier = Modifier) {
         modifier = Modifier
             .fillMaxWidth()
             .height(130.dp)
-            .padding(16.dp),
+            .padding(16.dp)
+            .shadow(2.dp , shape = RoundedCornerShape(24.dp))
+            .background(color = colorResource(R.color.dividerColor) , shape = RoundedCornerShape(24.dp))
+            .shimmerEffect(),
         horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
             modifier = Modifier
                 .size(70.dp)
+                .padding(6.dp)
                 .border(
                     width = 2.dp,
                     color = colorResource(R.color.shapeColorBorder),

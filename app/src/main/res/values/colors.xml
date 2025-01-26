@@ -20,4 +20,6 @@
     <color name="searchBarColor">#FFECECFF</color>
     <color name="searchIcon2Color">#FFFF7100</color>
     <color name="searchbarBAck">#FFECECFF</color>
+    <color name="searchIcon3Color">#E7242424</color>
+
 </resources>
