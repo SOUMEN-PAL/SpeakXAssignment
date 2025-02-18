@@ -104,7 +104,7 @@ fun HomeScreen(
 
                             items.apply {
                                 when {
-                                    loadState.append is LoadState.Loading -> item {
+                                    loadState.append is LoadState.Loading -> items(10) {
                                         ShimmerComposable()
                                     }
 
@@ -118,6 +118,9 @@ fun HomeScreen(
                                             color = Color.Red,
                                             modifier = Modifier.padding(16.dp)
                                         )
+                                    }
+                                    loadState.refresh is LoadState.Loading -> items(10){
+                                        ShimmerComposable()
                                     }
                                 }
                             }

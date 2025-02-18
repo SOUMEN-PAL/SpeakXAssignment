@@ -13,8 +13,9 @@ import kotlinx.coroutines.flow.Flow
 class ItemRepository(
     private val api : MockApi
 ) {
-    fun getItems(): Pager<Int , Item>{
+    fun getItems(): Pager<Int, Item> {
         return Pager(
+            initialKey = 200,
             config = PagingConfig(
                 pageSize = 10,
                 enablePlaceholders = false

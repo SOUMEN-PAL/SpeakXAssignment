@@ -6,32 +6,41 @@ import com.example.speakxassignment.data.api.MockApi
 import com.example.speakxassignment.data.model.Item
 
 class ItemPagingSource(
-    private val api : MockApi
-): PagingSource<Int , Item>() {
+    private val api: MockApi
+) : PagingSource<Int, Item>() {
+
+    private val initialKey = 200
+
     override fun getRefreshKey(state: PagingState<Int, Item>): Int? {
-        return null
+        return state.anchorPosition?.let { anchorPos ->
+            state.closestPageToPosition(anchorPos)?.prevKey?.plus(10)
+                ?: state.closestPageToPosition(anchorPos)?.nextKey?.minus(10)
+        } ?: initialKey
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Item> {
-        return try{
-            val currentId = params.key ?: 0
-            val direction = if(params.loadSize > 0) "down" else "up"
+        val currentKey = params.key ?: initialKey
 
-            val apiResponse = api.fetchItems(currentId , direction)
+        val direction = when (params) {
+            is LoadParams.Prepend -> "up"
+            is LoadParams.Append -> "down"
+            is LoadParams.Refresh -> "up"
+            else -> "up"
+        }
 
-            val prevKey = if(direction == "up" && currentId > 0) currentId - 10 else null
-            val nextKey = if(apiResponse.hasMore) currentId + 10 else null
+        return try {
+            val response = api.fetchItems(currentKey, direction)
+
+            val prevKey = if (currentKey > 0) currentKey - 10 else null
+            val nextKey = if (response.hasMore) currentKey + 10 else null
 
             LoadResult.Page(
-                data = apiResponse.items,
+                data = response.items,
                 prevKey = prevKey,
                 nextKey = nextKey
             )
-
-        }catch (e: Exception){
+        } catch (e: Exception) {
             LoadResult.Error(e)
         }
-
     }
-
 }

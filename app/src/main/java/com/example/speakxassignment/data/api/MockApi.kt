@@ -7,20 +7,32 @@ class MockApi {
     private val limit = 1500
 
     suspend fun fetchItems(
-        id : Int,
-        direction : String
-    ):ApiResponse{
+        id: Int,
+        direction: String
+    ): ApiResponse {
         delay(1000)
-        val data = when (direction){
-            "up" -> (id - 10 until id).filter { it >= 0 }.map { Item(it , "Item $it") }
-            "down" -> (id + 1 .. id+10).filter { it<=limit }.map { Item(it , "Item $it") }
-            else -> emptyList<Item>()
+        val data = when (direction) {
+            "up" -> {
+                val start = (id - 10).coerceAtLeast(0)
+                (start until id).map { Item(it, "Item $it") }
+            }
+            "down" -> {
+                // Calculate end index without exceeding the limit.
+                val end = (id + 10).coerceAtMost(limit)
+                (id + 1..end).map { Item(it, "Item $it") }
+            }
+            else -> emptyList()
         }
 
-        val hasMore = data.isNotEmpty()
-        val response = ApiResponse(data , hasMore)
-        return response
+        val hasMore = when (direction) {
+            "up" -> id > 10
+            "down" -> id < limit - 10
+            else -> false
+        }
+
+        return ApiResponse(data, hasMore)
     }
+
 
     suspend fun searchData(
         id: Int,
